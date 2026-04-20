@@ -194,21 +194,21 @@
 </head>
 <body>
   <nav class="navbar">
-    <a href="/" class="nav-logo">🎮 FLang</a>
+    <a href="index.html" class="nav-logo">🎮 FLang</a>
     <div class="nav-links">
-      <a href="/" class="nav-link">Home</a>
-      <a href="/learn.html" class="nav-link">Learn</a>
-      <a href="/explore.html" class="nav-link">Explore</a>
-      <a href="/about.html" class="nav-link active">About</a>
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="learn.html" class="nav-link">Learn</a>
+      <a href="explore.html" class="nav-link">Explore</a>
+      <a href="about.html" class="nav-link active">About</a>
       <a href="https://github.com/Ansari-Codes/funlang" target="_blank" class="nav-link github-link">⭐ GitHub</a>
     </div>
     <button class="hamburger" id="hamburger">☰</button>
   </nav>
   <div class="mobile-menu" id="mobileMenu">
-    <a href="/" class="nav-link">Home</a>
-    <a href="/learn.html" class="nav-link">Learn</a>
-    <a href="/explore.html" class="nav-link">Explore</a>
-    <a href="/about.html" class="nav-link active">About</a>
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="learn.html" class="nav-link">Learn</a>
+    <a href="explore.html" class="nav-link">Explore</a>
+    <a href="about.html" class="nav-link active">About</a>
     <a href="https://github.com/Ansari-Codes/funlang" target="_blank" class="nav-link">⭐ GitHub</a>
   </div>
 
@@ -223,7 +223,7 @@
     <!-- What is FLang -->
     <div class="section-title">🎮 What is FLang?</div>
     <div class="card">
-      <p style="font-size:1.05rem; line-height:1.8;">FLang (<strong>Fun Language</strong>) is a <strong>Domain Specific Language (DSL)</strong> designed for educational purposes. It uses a SQL-like syntax mixed with Python-inspired control structures — making it super readable and beginner-friendly!</p>
+      <p style="font-size:1.05rem; line-height:1.8;">FLang (<strong>Fun Language</strong>) is a <strong>Domain Specific Language (DSL)</strong> designed for educational purposes. It uses a English-like syntax — making it super readable and beginner-friendly!</p>
       <div class="tech-row" style="margin-top:1.2rem;">
         <div class="tech-badge">🐍 Built with Python</div>
         <div class="tech-badge">🔄 Transpiles to Python</div>
@@ -370,18 +370,6 @@
           <span>🐙</span> GitHub Profile
         </a>
       </div>
-      <div style="margin-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 1.2rem;">
-        <div style="font-family:'Fredoka One',cursive; font-size:1rem; margin-bottom:0.8rem; opacity:0.9;">📎 Add Portfolio Links</div>
-        <div class="portfolio-input-wrap" id="portfolioLinks">
-          <!-- dynamic links go here -->
-        </div>
-        <div class="portfolio-input-wrap">
-          <input type="url" class="portfolio-input" id="portfolioUrl" placeholder="https://your-portfolio.com" />
-          <input type="text" class="portfolio-input" id="portfolioLabel" placeholder="Link Label (e.g. Portfolio)" style="max-width:180px;" />
-          <button class="portfolio-add-btn" onclick="addPortfolioLink()">+ Add</button>
-        </div>
-        <div style="font-size:0.8rem; opacity:0.6; margin-top:0.5rem;">Links are saved in your browser</div>
-      </div>
     </div>
 
     <!-- How to Run -->
@@ -395,7 +383,7 @@
   </main>
 
   <footer class="footer">
-    <p>🎮 FLang — Made with ❤️ by <a href="/about.html">Muhammad Abubakar Siddique Ansari</a></p>
+    <p>🎮 FLang — Made with ❤️ by <a href="about.html">Muhammad Abubakar Siddique Ansari</a></p>
     <p style="margin-top:0.5rem; font-size:0.85rem;">The Fun Language for Future Programmers!</p>
   </footer>
 
@@ -403,42 +391,6 @@
     document.getElementById('hamburger').addEventListener('click', () => {
       document.getElementById('mobileMenu').classList.toggle('open');
     });
-
-    function loadPortfolioLinks() {
-      const saved = JSON.parse(localStorage.getItem('flang_portfolio_links') || '[]');
-      const container = document.getElementById('portfolioLinks');
-      container.innerHTML = '';
-      saved.forEach((item, idx) => {
-        const a = document.createElement('a');
-        a.href = item.url;
-        a.target = '_blank';
-        a.className = 'social-link';
-        a.innerHTML = `<span>🔗</span> ${item.label} <button onclick="removeLink(${idx})" style="background:rgba(255,255,255,0.2);border:none;color:#fff;border-radius:50%;width:20px;height:20px;cursor:pointer;font-size:0.75rem;margin-left:0.3rem;" title="Remove">✕</button>`;
-        container.appendChild(a);
-      });
-    }
-
-    function addPortfolioLink() {
-      const url = document.getElementById('portfolioUrl').value.trim();
-      const label = document.getElementById('portfolioLabel').value.trim() || 'My Portfolio';
-      if (!url) return;
-      const saved = JSON.parse(localStorage.getItem('flang_portfolio_links') || '[]');
-      saved.push({ url, label });
-      localStorage.setItem('flang_portfolio_links', JSON.stringify(saved));
-      document.getElementById('portfolioUrl').value = '';
-      document.getElementById('portfolioLabel').value = '';
-      loadPortfolioLinks();
-    }
-
-    function removeLink(idx) {
-      event.preventDefault();
-      const saved = JSON.parse(localStorage.getItem('flang_portfolio_links') || '[]');
-      saved.splice(idx, 1);
-      localStorage.setItem('flang_portfolio_links', JSON.stringify(saved));
-      loadPortfolioLinks();
-    }
-
-    loadPortfolioLinks();
   </script>
 </body>
 </html>

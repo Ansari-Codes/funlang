@@ -146,21 +146,21 @@
 </head>
 <body>
   <nav class="navbar">
-    <a href="/" class="nav-logo">🎮 FLang</a>
+    <a href="index.html" class="nav-logo">🎮 FLang</a>
     <div class="nav-links">
-      <a href="/" class="nav-link">Home</a>
-      <a href="/learn.html" class="nav-link active">Learn</a>
-      <a href="/explore.html" class="nav-link">Explore</a>
-      <a href="/about.html" class="nav-link">About</a>
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="learn.html" class="nav-link active">Learn</a>
+      <a href="explore.html" class="nav-link">Explore</a>
+      <a href="about.html" class="nav-link">About</a>
       <a href="https://github.com/Ansari-Codes/funlang" target="_blank" class="nav-link github-link">⭐ GitHub</a>
     </div>
     <button class="hamburger" id="hamburger">☰</button>
   </nav>
   <div class="mobile-menu" id="mobileMenu">
-    <a href="/" class="nav-link">Home</a>
-    <a href="/learn.html" class="nav-link active">Learn</a>
-    <a href="/explore.html" class="nav-link">Explore</a>
-    <a href="/about.html" class="nav-link">About</a>
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="learn.html" class="nav-link active">Learn</a>
+    <a href="explore.html" class="nav-link">Explore</a>
+    <a href="about.html" class="nav-link">About</a>
     <a href="https://github.com/Ansari-Codes/funlang" target="_blank" class="nav-link">⭐ GitHub</a>
   </div>
 
@@ -175,7 +175,7 @@
     <a href="#display">🖨️ Display</a>
     <a href="#conditions">🤔 Conditions</a>
     <a href="#loops">🔄 Loops</a>
-    <a href="#arrays">🎒 Arrays</a>
+    <a href="#lists">🎒 Lists</a>
     <a href="#functions">⚡ Functions</a>
     <a href="#input">🎤 Input</a>
     <a href="#running">🚀 Running</a>
@@ -195,9 +195,10 @@
       </div>
       <div class="card">
         <p style="margin-bottom:1rem;">A <strong>variable</strong> is like a labeled box where you store information. Think of <code style="background:#f3f0ff;padding:0.1rem 0.4rem;border-radius:0.3rem;">SET</code> as putting something in a box!</p>
-        <div class="code-block"><span class="kw">SET</span> my_name <span class="kw">TO</span> <span class="str">"Robot"</span>
-<span class="kw">SET</span> score <span class="kw">TO</span> <span class="num">100</span>
-<span class="kw">SET</span> is_fun <span class="kw">TO</span> true</div>
+        <div class="code-block">
+          <span class="kw">SET</span> my_name <span class="kw">TO</span> <span class="str">"Robot"</span><br>
+          <span class="kw">SET</span> score <span class="kw">TO</span> <span class="num">100</span><br>
+          <span class="kw">SET</span> is_fun <span class="kw">TO</span> true</div>
         <div class="two-col">
           <div class="mini-card">
             <div class="mini-card-title">📝 Text (Strings)</div>
@@ -240,9 +241,10 @@
       </div>
       <div class="card">
         <p style="margin-bottom:1rem;"><strong>DISP</strong> (short for Display) lets you print things to the screen. It's like telling the computer to say something out loud!</p>
-        <div class="code-block"><span class="kw">DISP</span> <span class="str">"Hello, World!"</span>
-<span class="kw">DISP</span> score
-<span class="kw">DISP</span> <span class="str">"Your score is: "</span> + score</div>
+        <div class="code-block">
+          <span class="kw">DISP</span> <span class="str">"Hello, World!"</span><br>
+          <span class="kw">DISP</span> score<br>
+          <span class="kw">DISP</span> <span class="str">"Your score is: "</span> + score</div>
         <div class="tip-box">Use the <code>+</code> operator to join text and variables together!</div>
       </div>
     </section>
@@ -256,14 +258,15 @@
       </div>
       <div class="card">
         <p style="margin-bottom:1rem;">Sometimes we want the computer to make choices. We use <strong>IF</strong>, <strong>ELIF</strong> (else-if), and <strong>ELSE</strong> for this!</p>
-        <div class="code-block"><span class="kw">SET</span> age <span class="kw">TO</span> <span class="num">10</span>
-
-<span class="kw">IF</span> age > <span class="num">12</span>:
-    <span class="kw">DISP</span> <span class="str">"You are a teenager!"</span>
-<span class="kw">ELIF</span> age < <span class="num">5</span>:
-    <span class="kw">DISP</span> <span class="str">"You are a toddler!"</span>
-<span class="kw">ELSE</span>:
-    <span class="kw">DISP</span> <span class="str">"You are just right!"</span></div>
+        <div class="code-block">
+          <span class="kw">SET</span> age <span class="kw">TO</span> <span class="num">10</span><br>
+          <span class="kw">IF</span> age > <span class="num">12</span>:<br>
+          <span class="kw" style="margin-left: 30px;">DISP</span> <span class="str">"You are a teenager!"</span><br>
+          <span class="kw">ELIF</span> age < <span class="num">5</span>:<br>
+          <span class="kw" style="margin-left: 30px;">DISP</span> <span class="str">"You are a toddler!"</span><br>
+          <span class="kw">ELSE</span>:<br>
+          <span class="kw" style="margin-left: 30px;">DISP</span> <span class="str">"You are just right!"</span>
+        </div>
         <div class="two-col">
           <div class="mini-card">
             <div class="mini-card-title">⚖️ Comparison Operators</div>
@@ -308,20 +311,28 @@
             <p>Use when you repeat <em>until something changes</em>.</p>
           </div>
         </div>
-        <div class="code-block"><span class="cmt">-- FOR loop: print 1 to 5</span>
-<span class="kw">FOR</span> <span class="fn">range</span>(<span class="num">1</span>, <span class="num">6</span>) <span class="kw">AS</span> i:
-    <span class="kw">DISP</span> i
+        <div class="code-block">
+          <span class="cmt">-- FOR loop: print 1 to 5</span><br>
+          <span class="kw">FOR</span> <span class="fn">range</span>(
+            <span class="num">1</span>, <span class="num">6</span>
+          ) <span class="kw">AS</span> i:<br>
+          <span class="kw" style="margin-left: 30px;">DISP</span> i<br>
 
-<span class="cmt">-- Loop through a list</span>
-<span class="kw">SET</span> fruits <span class="kw">TO</span> [<span class="str">"apple"</span>, <span class="str">"banana"</span>, <span class="str">"mango"</span>]
-<span class="kw">FOR</span> fruits <span class="kw">AS</span> fruit:
-    <span class="kw">DISP</span> fruit
+          <span class="cmt">-- Loop through a list</span><br>
+          <span class="kw">SET</span> fruits <span class="kw">TO</span> 
+          [
+            <span class="str">"apple"</span>, 
+            <span class="str">"banana"</span>, 
+            <span class="str">"mango"</span>
+          ]<br>
+          <span class="kw">FOR</span> fruits <span class="kw">AS</span> fruit:<br>
+          <span class="kw" style="margin-left: 30px;">DISP</span> fruit<br>
 
-<span class="cmt">-- WHILE loop</span>
-<span class="kw">SET</span> counter <span class="kw">TO</span> <span class="num">0</span>
-<span class="kw">WHILE</span> counter < <span class="num">3</span>:
-    <span class="kw">DISP</span> <span class="str">"Still going!"</span>
-    <span class="kw">SET</span> counter <span class="kw">TO</span> counter + <span class="num">1</span></div>
+          <span class="cmt">-- WHILE loop</span><br>
+          <span class="kw">SET</span> counter <span class="kw">TO</span> <span class="num">0</span><br>
+          <span class="kw">WHILE</span> counter < <span class="num">3</span>:<br>
+          <span class="kw" style="margin-left: 30px;">DISP</span> <span class="str">"Still going!"</span><br>
+          <span class="kw" style="margin-left: 30px;">SET</span> counter <span class="kw">TO</span> counter + <span class="num">1</span></div>
         <div style="margin-top:1rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
           <div style="background:#fce7f3;border-radius:1rem;padding:0.8rem 1rem;flex:1;min-width:180px;">
             <strong style="color:#be185d;">NEXT</strong> — Skip to next round of the loop (like Python's <code>continue</code>)
@@ -334,24 +345,30 @@
       </div>
     </section>
 
-    <!-- LESSON 5: Arrays -->
-    <section class="lesson-section" id="arrays">
+    <section class="lesson-section" id="lists">
       <div class="lesson-header">
         <div class="lesson-num">5</div>
         <span class="lesson-emoji">🎒</span>
-        <div class="lesson-title">Arrays — Lists of Things</div>
+        <div class="lesson-title">Lists — Collection of Things</div>
       </div>
       <div class="card">
-        <p style="margin-bottom:1rem;">An <strong>array</strong> is a list of items stored in one variable. Think of it like a bag holding many things!</p>
-        <div class="code-block"><span class="kw">SET</span> my_list <span class="kw">TO</span> [<span class="num">10</span>, <span class="num">20</span>, <span class="num">30</span>, <span class="num">40</span>]
+        <p style="margin-bottom:1rem;">A <strong>list</strong> is a collection of items stored in one variable. Think of it like a bag holding many things!</p>
+        <div class="code-block">
+          <span class="kw">SET</span> my_list <span class="kw">TO</span> 
+          [
+            <span class="num">10</span>, 
+            <span class="num">20</span>, 
+            <span class="num">30</span>, 
+            <span class="num">40</span>
+          ]<br>
+          <span class="cmt">-- Get the first item (index 0)</span><br>
+          <span class="kw">DISP</span> my_list[<span class="num">0</span>] <span class="cmt">-- prints 10</span><br>
 
-<span class="cmt">-- Get the first item (index 0)</span>
-<span class="kw">DISP</span> my_list[<span class="num">0</span>]  <span class="cmt">-- prints 10</span>
-
-<span class="cmt">-- Loop through the list</span>
-<span class="kw">FOR</span> my_list <span class="kw">AS</span> item:
-    <span class="kw">DISP</span> item</div>
-        <div class="tip-box">Arrays start counting from <strong>0</strong>, not 1! So the first item is at index 0.</div>
+          <span class="cmt">-- Loop through the list</span><br>
+          <span class="kw">FOR</span> my_list <span class="kw">AS</span> item:<br>
+          <span class="kw" style="margin-left: 30px;">DISP</span> item
+        </div>
+        <div class="tip-box">Lists start counting from <strong>0</strong>, not 1! So the first item is at index 0.</div>
       </div>
     </section>
 
@@ -364,18 +381,21 @@
       </div>
       <div class="card">
         <p style="margin-bottom:1rem;">A <strong>function</strong> is a reusable block of code you name and call whenever you need it. Use <strong>DEF</strong> to define one!</p>
-        <div class="code-block"><span class="kw">DEF</span> <span class="fn">say_hello</span>(name):
-    <span class="kw">DISP</span> <span class="str">"Hello "</span> + name + <span class="str">"!"</span>
+        <div class="code-block">
+          <span class="kw">DEF</span> <span class="fn">say_hello</span>(name):<br>
+          <span class="kw" style="margin-left: 30px;">DISP</span> <span class="str">"Hello "</span> + name + <span class="str">"!"</span><br>
 
-<span class="fn">say_hello</span>(<span class="str">"Sam"</span>)
-<span class="fn">say_hello</span>(<span class="str">"Alex"</span>)
+          <span class="fn">say_hello</span>(<span class="str">"Sam"</span>)<br>
+          <span class="fn">say_hello</span>(<span class="str">"Alex"</span>)<br>
 
-<span class="cmt">-- Function with RETURN</span>
-<span class="kw">DEF</span> <span class="fn">add</span>(a, b):
-    <span class="kw">RETURN</span> a + b
+          <span class="cmt">-- Function with RETURN</span><br>
+          <span class="kw">DEF</span> <span class="fn">add</span>(a, b):<br>
+          <span class="kw" style="margin-left: 30px;">RETURN</span> a + b<br>
 
-<span class="kw">SET</span> result <span class="kw">TO</span> <span class="fn">add</span>(<span class="num">5</span>, <span class="num">3</span>)
-<span class="kw">DISP</span> result  <span class="cmt">-- prints 8</span></div>
+          <span class="kw">SET</span> result <span class="kw">TO</span> <span class="fn">
+            add</span>(<span class="num">5</span>, <span class="num">3</span>)<br>
+          <span class="kw">DISP</span> result  <span class="cmt">-- prints 8</span>
+        </div>
         <div class="tip-box">Functions help you avoid writing the same code twice. Write once, use many times!</div>
       </div>
     </section>
@@ -389,13 +409,18 @@
       </div>
       <div class="card">
         <p style="margin-bottom:1rem;">Use <strong>ASK</strong> to ask the user a question and store their answer in a variable!</p>
-        <div class="code-block"><span class="cmt">-- Ask for a number</span>
-<span class="kw">SET</span> age <span class="kw">TO</span> <span class="kw">ASK INT</span> <span class="str">"How old are you? "</span>
+        <div class="code-block">
+          <span class="cmt">-- Ask for a number</span><br>
+          <span class="kw">SET</span> age <span class="kw">TO</span> <span class="kw">ASK INT</span> 
+          <span class="str">"How old are you? "</span><br>
 
-<span class="cmt">-- Ask for text</span>
-<span class="kw">SET</span> name <span class="kw">TO</span> <span class="kw">ASK STR</span> <span class="str">"What is your name? "</span>
+          <span class="cmt">-- Ask for text</span><br>
+          <span class="kw">SET</span> name <span class="kw">TO</span> <span class="kw">ASK STR</span> 
+          <span class="str">"What is your name? "</span><br>
 
-<span class="kw">DISP</span> <span class="str">"Nice to meet you, "</span> + name + <span class="str">"!"</span></div>
+          <span class="kw">DISP</span> <span class="str">"Nice to meet you, "</span> + name + 
+          <span class="str">"!"</span>
+        </div>
         <div class="two-col">
           <div class="mini-card">
             <div class="mini-card-title">🔢 ASK INT</div>
@@ -421,7 +446,7 @@
         <div class="code-block" style="background:#0d1117;color:#58a6ff;">python -m flang.__main__ your_file.fun</div>
         <div class="highlight-box">
           <p style="font-family:'Fredoka One',cursive;font-size:1.2rem;color:#1a0062;margin-bottom:0.5rem;">🎉 You finished the lessons!</p>
-          <p>Now go to the <a href="/explore.html" style="color:#4c3bff;font-weight:700;">Explore page</a> to discover all the built-in functions, or check out the <a href="https://github.com/Ansari-Codes/funlang" target="_blank" style="color:#4c3bff;font-weight:700;">GitHub repo</a> to download FLang!</p>
+          <p>Now go to the <a href="explore.html" style="color:#4c3bff;font-weight:700;">Explore page</a> to discover all the built-in functions, or check out the <a href="https://github.com/Ansari-Codes/funlang" target="_blank" style="color:#4c3bff;font-weight:700;">GitHub repo</a> to download FLang!</p>
         </div>
       </div>
     </section>
@@ -429,7 +454,7 @@
   </main>
 
   <footer class="footer">
-    <p>🎮 FLang — Made with ❤️ by <a href="/about.html">Muhammad Abubakar Siddique Ansari</a></p>
+    <p>🎮 FLang — Made with ❤️ by <a href="about.html">Muhammad Abubakar Siddique Ansari</a></p>
   </footer>
 
   <script>

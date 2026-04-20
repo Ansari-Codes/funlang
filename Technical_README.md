@@ -89,7 +89,7 @@ The FLang environment is populated with the following built-in functions prior t
 | `sum` | `sum()` | Sum of iterable. |
 | `random` | `random.random()` | Random float [0.0, 1.0). |
 | `randint` | `random.randint()` | Random integer in range. |
-| **List/Array Utils** | | |
+| **List Utils** | | |
 | `len` | `len()` | Length of iterable. |
 | `range` | `range()` | Generates number sequence. |
 | `sort` | `sorted()` | Returns sorted list. |

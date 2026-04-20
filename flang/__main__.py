@@ -1,7 +1,5 @@
 import sys
 import os
-import tempfile
-import subprocess
 from .transpiler import transpile
 from .errors import FLangError
 
@@ -11,14 +9,35 @@ def main():
         print("FLang Interpreter")
         print("Usage: python -m flang <file.fun>")
         print("       python -m flang --transpile <file.fun>   (show Python code only)")
+        print("       python -m flang -o <output.py> <file.fun>   (write transpiled code to file and run)")
+        print("       python -m flang --transpile -o <output.py> <file.fun>   (write and show, no run)")
         sys.exit(1)
 
     show_only = False
-    filename = sys.argv[1]
-
-    if sys.argv[1] == "--transpile" and len(sys.argv) >= 3:
-        show_only = True
-        filename = sys.argv[2]
+    output_file = None
+    filename = None
+    
+    # Parse arguments
+    i = 1
+    while i < len(sys.argv):
+        arg = sys.argv[i]
+        if arg == "--transpile":
+            show_only = True
+        elif arg == "-o":
+            if i + 1 < len(sys.argv):
+                output_file = sys.argv[i + 1]
+                i += 1  # Skip the next argument (the filename)
+            else:
+                print("Error: -o flag requires an output filename")
+                sys.exit(1)
+        else:
+            filename = arg
+        i += 1
+    
+    if not filename:
+        print("Error: No input file specified")
+        print("Usage: python -m flang <file.fun>")
+        sys.exit(1)
 
     if not os.path.exists(filename):
         print(f"Uh oh! I can't find the file '{filename}'. Are you sure it exists?")
@@ -33,22 +52,30 @@ def main():
         print(str(e))
         sys.exit(1)
 
+    # Write to output file if specified (but don't use it for execution)
+    if output_file:
+        try:
+            with open(output_file, "w") as f:
+                f.write(py_code)
+            print(f"Transpiled code written to: {output_file}")
+        except Exception as e:
+            print(f"Error writing to output file: {e}")
+            sys.exit(1)
+
     if show_only:
         print(py_code)
         return
 
-    with tempfile.NamedTemporaryFile(mode="w", suffix=".py", delete=False) as tmp:
-        tmp.write(py_code)
-        tmp_path = tmp.name
-
+    # Always execute the transpiled Python code directly using exec
     try:
-        result = subprocess.run(
-            [sys.executable, tmp_path],
-            capture_output=False,
-        )
-        sys.exit(result.returncode)
-    finally:
-        os.unlink(tmp_path)
+        exec_globals = {
+            '__name__': '__main__',
+            '__file__': filename,
+        }
+        exec(py_code, exec_globals)
+    except Exception as e:
+        print(f"Runtime error: {e}")
+        sys.exit(1)
 
 
 if __name__ == "__main__":

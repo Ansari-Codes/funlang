@@ -85,9 +85,9 @@ WHILE counter < 3:
 
 ---
 
-## 🎒 Arrays (Lists of Things)
+## 🎒 Lists (Lists of Things)
 
-What if you want to store many numbers? You use an **Array**, which is just a list!
+What if you want to store many numbers? You use an **List**, which is just a list!
 
 ```sql
 SET my_list TO [10, 20, 30, 40]
@@ -126,7 +126,7 @@ FLang comes with a toolbox full of helpers. You don't need to write the math for
 *   `strreplace("abc", "a", "z")` → swaps letters ("zbc").
 *   `strcontains("apple", "p")` → checks if text is inside (True).
 *   `strstarts("hello", "he")` → checks if it starts with something (True).
-*   `strjoin(["apple", "banana", "orange"], ", ")` → joins strings in an array with specified joiner (", ") (output: "apply, banana, orange").
+*   `strjoin(["apple", "banana", "orange"], ", ")` → joins strings in an List with specified joiner (", ") (output: "apply, banana, orange").
 
 ### Math Tools
 *   `abs(-10)` → makes negative numbers positive (10).
