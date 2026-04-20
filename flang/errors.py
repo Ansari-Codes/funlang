@@ -84,13 +84,6 @@ def missing_as_error(line=None):
     )
 
 
-def bad_for_range_error(line=None):
-    return FLangError(
-        "The FOR RANGE loop isn't quite right. Try: FOR RANGE 1 TO 10 AS x",
-        line,
-    )
-
-
 def bad_function_def_error(line=None):
     return FLangError(
         "Function definition looks wrong. It should be: DEF myFunc(a, b):",

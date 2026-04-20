@@ -4,7 +4,7 @@ from typing import List, Optional
 from .errors import unknown_token_error, FLangError
 
 KEYWORDS = {
-    "SET", "TO", "DISP", "IF", "ELIF", "ELSE", "FOR", "RANGE", "STEP", "AS",
+    "SET", "TO", "DISP", "IF", "ELIF", "ELSE", "FOR", "AS",
     "WHILE", "END", "NEXT", "DEF", "RETURN", "ASK", "INT", "FLOAT", "STR",
     "BOOL", "TRUE", "FALSE", "AND", "OR", "NOT",
 }

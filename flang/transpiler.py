@@ -149,25 +149,6 @@ def emit_stmt(node: Node, depth: int) -> List[str]:
             lines.append(f"{pad}if True:")
             lines.append(f"{pad}{INDENT}pass")
 
-    elif node.kind == "for_range":
-        var = _prefix(node.children[0].value)
-        arg_nodes = [c for c in node.children[1:] if c.kind == "arg"]
-        body_nodes = [c for c in node.children[1:] if c.kind != "arg"]
-        args = [emit_expr(a.value) for a in arg_nodes]
-
-        if len(args) == 1:
-            range_call = f"range(int({args[0]}))"
-        elif len(args) == 2:
-            range_call = f"range(int({args[0]}), int({args[1]}))"
-        else:
-            range_call = f"range(int({args[0]}), int({args[1]}), int({args[2]}))"
-
-        lines.append(f"{pad}for {var} in {range_call}:")
-        for stmt in body_nodes:
-            lines.extend(emit_stmt(stmt, depth + 1))
-        if not body_nodes:
-            lines.append(f"{pad}{INDENT}pass")
-
     elif node.kind == "for_iter":
         var = _prefix(node.children[0].value)
         iterable = emit_expr(node.children[1])
@@ -213,7 +194,6 @@ def emit_stmt(node: Node, depth: int) -> List[str]:
 
     else:
         raise FLangError(f"Unknown statement kind '{node.kind}'", node.line)
-
     return lines
 
 

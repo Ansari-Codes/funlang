@@ -2,8 +2,8 @@ from dataclasses import dataclass, field
 from typing import List, Optional, Any
 from .lexer import Token, tokenize
 from .errors import (
-    FLangError, unexpected_token_error, missing_to_error, missing_as_error,
-    bad_for_range_error, bad_function_def_error, missing_colon_error,
+    FLangError, unexpected_token_error, missing_to_error, missing_as_error
+    , bad_function_def_error, missing_colon_error,
     ask_type_error,
 )
 
@@ -292,39 +292,17 @@ class Parser:
         self.consume("FOR")
         tok = self.peek()
 
-        if tok.type == "RANGE":
-            self.consume("RANGE")
-            args = []
-            args.append(self.parse_expr())
-            if self.peek().type == "TO":
-                self.consume("TO")
-                args.append(self.parse_expr())
-                if self.peek().type == "STEP":
-                    self.consume("STEP")
-                    args.append(self.parse_expr())
-            if self.peek().type != "AS":
-                raise missing_as_error(line)
-            self.consume("AS")
-            var_tok = self.consume("IDENT")
-            if self.peek().type != "COLON":
-                raise missing_colon_error("FOR RANGE", line)
-            self.consume("COLON")
-            self._eat_line_end()
-            body = self.parse_block(indent)
-            return Node("for_range", line, [Node("ident", line, value=var_tok.value)] + [Node("arg", line, value=a) for a in args] + body)
-
-        else:
-            iter_expr = self.parse_expr()
-            if self.peek().type != "AS":
-                raise missing_as_error(line)
-            self.consume("AS")
-            var_tok = self.consume("IDENT")
-            if self.peek().type != "COLON":
-                raise missing_colon_error("FOR", line)
-            self.consume("COLON")
-            self._eat_line_end()
-            body = self.parse_block(indent)
-            return Node("for_iter", line, [Node("ident", line, value=var_tok.value), iter_expr] + body)
+        iter_expr = self.parse_expr()
+        if self.peek().type != "AS":
+            raise missing_as_error(line)
+        self.consume("AS")
+        var_tok = self.consume("IDENT")
+        if self.peek().type != "COLON":
+            raise missing_colon_error("FOR", line)
+        self.consume("COLON")
+        self._eat_line_end()
+        body = self.parse_block(indent)
+        return Node("for_iter", line, [Node("ident", line, value=var_tok.value), iter_expr] + body)
 
     def parse_while(self, indent: str, line: int) -> Node:
         self.consume("WHILE")
