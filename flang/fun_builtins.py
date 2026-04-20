@@ -7,6 +7,7 @@ Builtins = {
     "strcontains": "fun_strcontains",
     "strstarts": "fun_strstarts",
     "strends": "fun_strends",
+    "strjoin": "fun_strjoin",
     "abs": "fun_abs",
     "round": "fun_round",
     "floor": "fun_floor",
@@ -20,7 +21,9 @@ Builtins = {
     "reverse": "fun_reverse",
     "append": "fun_append",
     "pop": "fun_pop",
-    "type": "fun_type",
+    "index": "fun_index",
+    "slice": "fun_slice",
+    "typeof": "fun_typeof",
     "tostr": "fun_tostr",
     "toint": "fun_toint",
     "tofloat": "fun_tofloat",
@@ -40,6 +43,7 @@ def fun_strsplit(s, sep=" "): return str(s).split(str(sep))
 def fun_strcontains(s, sub): return str(sub) in str(s)
 def fun_strstarts(s, pre): return str(s).startswith(str(pre))
 def fun_strends(s, suf): return str(s).endswith(str(suf))
+def fun_strjoin(lst, joiner=""): return joiner.join(lst)
 def fun_abs(n): return abs(n)
 def fun_round(n, d=0): return round(n, int(d))
 def fun_floor(n): return _math.floor(n)
@@ -53,7 +57,9 @@ def fun_sort(lst): return sorted(lst)
 def fun_reverse(lst): return list(reversed(lst))
 def fun_append(lst, item): return lst + [item]
 def fun_pop(lst): return lst[:-1]
-def fun_type(v): return type(v).__name__
+def fun_index(lst, ind): return lst[ind]
+def fun_slice(lst, start, end=None, step=None): return lst[start:end:step]
+def fun_typeof(v): return type(v).__name__
 def fun_tostr(v): return str(v)
 def fun_toint(v): return int(v)
 def fun_tofloat(v): return float(v)

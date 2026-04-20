@@ -78,6 +78,7 @@ The FLang environment is populated with the following built-in functions prior t
 | `strcontains` | `in` operator | Checks for substring. |
 | `strstarts` | `str.startswith()` | Checks prefix. |
 | `strends` | `str.endswith()` | Checks suffix. |
+| `strjoin` | `joiner.join(list)` | Joins strings. |
 | **Math Utils** | | |
 | `abs` | `abs()` | Absolute value. |
 | `round` | `round()` | Rounds number. |
@@ -95,8 +96,10 @@ The FLang environment is populated with the following built-in functions prior t
 | `reverse` | `list.reverse()` | Reverses list in-place. |
 | `append` | `list.append()` | Appends item to list. |
 | `pop` | `list.pop()` | Removes and returns item. |
+| `index` | `list[n]` | Return item at index n. |
+| `slice` | `list[start:end:step]` | Slices the list. |
 | **Type Utils** | | |
-| `type` | `type()` | Returns type of object. |
+| `typeof` | `type()` | Returns type of object. |
 | `tostr` | `str()` | Casts to string. |
 | `toint` | `int()` | Casts to integer. |
 | `tofloat` | `float()` | Casts to float. |

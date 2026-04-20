@@ -126,6 +126,7 @@ FLang comes with a toolbox full of helpers. You don't need to write the math for
 *   `strreplace("abc", "a", "z")` → swaps letters ("zbc").
 *   `strcontains("apple", "p")` → checks if text is inside (True).
 *   `strstarts("hello", "he")` → checks if it starts with something (True).
+*   `strjoin(["apple", "banana", "orange"], ", ")` → joins strings in an array with specified joiner (", ") (output: "apply, banana, orange").
 
 ### Math Tools
 *   `abs(-10)` → makes negative numbers positive (10).
@@ -144,12 +145,14 @@ FLang comes with a toolbox full of helpers. You don't need to write the math for
 *   `reverse([1, 2, 3])` → flips the list backwards ([3, 2, 1]).
 *   `append(my_list, 4)` → adds an item to the end of a list.
 *   `pop(my_list)` → removes the last item from a list.
+*   `index(my_list, 2)` → returns item at index 2.
+*   `slice(my_list, 1, 3)` → return sub-list from item 1 to 3 (ending exclusive).
 
 ### Conversion Tools
 *   `tostr(123)` → turns a number into text ("123").
 *   `toint("123")` → turns text into a number (123).
 *   `tofloat("1.5")` → turns text into a decimal number (1.5).
-*   `type(x)` → tells you what "type" of variable x is (like "int" or "str").
+*   `typeof(x)` → tells you what "type" of variable x is (like "int" or "str").
 
 ### Asking the User
 *   `ASK INT "Guess a number: "` — Asks the user for a whole number.
