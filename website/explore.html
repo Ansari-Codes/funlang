@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Explore FLang - Built-ins & Keywords</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+    .fn-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+    .fn-card {
+      background: #fff;
+      border-radius: 1.2rem;
+      padding: 1.2rem;
+      border: 2px solid #e0e0e0;
+      box-shadow: 0 4px 0 #e8e8e8;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .fn-card:hover { transform: translateY(-4px); box-shadow: 0 8px 0 #e0e0e0; }
+    .fn-card.hidden { display: none; }
+    .fn-name {
+      font-family: 'Courier New', monospace;
+      font-weight: 800;
+      font-size: 1rem;
+      color: #4c3bff;
+      background: #f3f0ff;
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 0.4rem;
+      margin-bottom: 0.4rem;
+    }
+    .fn-signature {
+      font-family: 'Courier New', monospace;
+      font-size: 0.82rem;
+      color: #888;
+      margin-bottom: 0.5rem;
+    }
+    .fn-desc { font-size: 0.9rem; color: #444; margin-bottom: 0.5rem; }
+    .fn-example {
+      font-family: 'Courier New', monospace;
+      font-size: 0.82rem;
+      color: #06d6a0;
+      background: #0f0a2e;
+      padding: 0.4rem 0.7rem;
+      border-radius: 0.5rem;
+    }
+    .fn-cat-badge {
+      font-family: 'Fredoka One', cursive;
+      font-size: 0.7rem;
+      padding: 0.1rem 0.5rem;
+      border-radius: 999px;
+      float: right;
+    }
+    .cat-string { background: #fce7f3; color: #be185d; }
+    .cat-math { background: #fef3c7; color: #92400e; }
+    .cat-list { background: #d1fae5; color: #065f46; }
+    .cat-type { background: #dbeafe; color: #1e40af; }
+
+    .kw-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .kw-card {
+      background: #fff;
+      border-radius: 1.2rem;
+      padding: 1.2rem;
+      border: 2px solid #e0e0e0;
+      box-shadow: 0 4px 0 #e8e8e8;
+      transition: transform 0.2s;
+    }
+    .kw-card:hover { transform: translateY(-3px); }
+    .kw-card.hidden { display: none; }
+    .kw-word {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.3rem;
+      color: #ff6b6b;
+      margin-bottom: 0.3rem;
+    }
+    .kw-use { font-size: 0.88rem; color: #555; }
+    .kw-arrow { color: #4c3bff; font-weight: 800; margin: 0 0.3rem; }
+
+    .no-results {
+      text-align: center;
+      padding: 3rem;
+      color: #888;
+      font-size: 1.1rem;
+      display: none;
+    }
+    .count-badge {
+      background: #4c3bff;
+      color: #fff;
+      font-family: 'Fredoka One', cursive;
+      font-size: 0.85rem;
+      padding: 0.15rem 0.7rem;
+      border-radius: 999px;
+      margin-left: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="/" class="nav-logo">🎮 FLang</a>
+    <div class="nav-links">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/learn.html" class="nav-link">Learn</a>
+      <a href="/explore.html" class="nav-link active">Explore</a>
+      <a href="/about.html" class="nav-link">About</a>
+      <a href="https://github.com/Ansari-Codes/funlang" target="_blank" class="nav-link github-link">⭐ GitHub</a>
+    </div>
+    <button class="hamburger" id="hamburger">☰</button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="/" class="nav-link">Home</a>
+    <a href="/learn.html" class="nav-link">Learn</a>
+    <a href="/explore.html" class="nav-link active">Explore</a>
+    <a href="/about.html" class="nav-link">About</a>
+    <a href="https://github.com/Ansari-Codes/funlang" target="_blank" class="nav-link">⭐ GitHub</a>
+  </div>
+
+  <div class="page-hero">
+    <span class="page-hero-emoji">🔍</span>
+    <h1>Explore FLang!</h1>
+    <p>Browse all the built-in superpowers and keywords. Search anything to find it fast!</p>
+  </div>
+
+  <main class="container">
+    <input type="search" class="search-box" id="globalSearch" placeholder="🔍 Search functions, keywords..." autocomplete="off" />
+
+    <!-- BUILT-IN FUNCTIONS -->
+    <div class="section-title">
+      🧰 Built-in Functions
+      <span class="count-badge" id="fnCount">31</span>
+    </div>
+    <div class="tabs">
+      <button class="tab-btn active" data-filter="all">All</button>
+      <button class="tab-btn" data-filter="string">📝 String</button>
+      <button class="tab-btn" data-filter="math">🔢 Math</button>
+      <button class="tab-btn" data-filter="list">📋 List</button>
+      <button class="tab-btn" data-filter="type">🔄 Conversion</button>
+    </div>
+
+    <div class="fn-grid" id="fnGrid">
+      <!-- String Functions -->
+      <div class="fn-card" data-cat="string" data-name="strlower">
+        <span class="fn-cat-badge cat-string">String</span>
+        <div class="fn-name">strlower</div>
+        <div class="fn-signature">strlower(text)</div>
+        <div class="fn-desc">Converts all letters to lowercase.</div>
+        <div class="fn-example">strlower("HELLO") → "hello"</div>
+      </div>
+      <div class="fn-card" data-cat="string" data-name="strupper">
+        <span class="fn-cat-badge cat-string">String</span>
+        <div class="fn-name">strupper</div>
+        <div class="fn-signature">strupper(text)</div>
+        <div class="fn-desc">Converts all letters to UPPERCASE.</div>
+        <div class="fn-example">strupper("hello") → "HELLO"</div>
+      </div>
+      <div class="fn-card" data-cat="string" data-name="strlen">
+        <span class="fn-cat-badge cat-string">String</span>
+        <div class="fn-name">strlen</div>
+        <div class="fn-signature">strlen(text)</div>
+        <div class="fn-desc">Returns the number of characters in the text.</div>
+        <div class="fn-example">strlen("abc") → 3</div>
+      </div>
+      <div class="fn-card" data-cat="string" data-name="strreplace">
+        <span class="fn-cat-badge cat-string">String</span>
+        <div class="fn-name">strreplace</div>
+        <div class="fn-signature">strreplace(text, old, new)</div>
+        <div class="fn-desc">Replaces part of the text with something new.</div>
+        <div class="fn-example">strreplace("abc", "a", "z") → "zbc"</div>
+      </div>
+      <div class="fn-card" data-cat="string" data-name="strsplit">
+        <span class="fn-cat-badge cat-string">String</span>
+        <div class="fn-name">strsplit</div>
+        <div class="fn-signature">strsplit(text, separator)</div>
+        <div class="fn-desc">Splits text into a list using a separator.</div>
+        <div class="fn-example">strsplit("a,b,c", ",") → ["a","b","c"]</div>
+      </div>
+      <div class="fn-card" data-cat="string" data-name="strcontains">
+        <span class="fn-cat-badge cat-string">String</span>
+        <div class="fn-name">strcontains</div>
+        <div class="fn-signature">strcontains(text, search)</div>
+        <div class="fn-desc">Checks if a word/letter is inside the text.</div>
+        <div class="fn-example">strcontains("apple", "p") → True</div>
+      </div>
+      <div class="fn-card" data-cat="string" data-name="strstarts">
+        <span class="fn-cat-badge cat-string">String</span>
+        <div class="fn-name">strstarts</div>
+        <div class="fn-signature">strstarts(text, prefix)</div>
+        <div class="fn-desc">Checks if text begins with a specific part.</div>
+        <div class="fn-example">strstarts("hello", "he") → True</div>
+      </div>
+      <div class="fn-card" data-cat="string" data-name="strends">
+        <span class="fn-cat-badge cat-string">String</span>
+        <div class="fn-name">strends</div>
+        <div class="fn-signature">strends(text, suffix)</div>
+        <div class="fn-desc">Checks if text ends with a specific part.</div>
+        <div class="fn-example">strends("hello", "lo") → True</div>
+      </div>
+      <div class="fn-card" data-cat="string" data-name="strjoin">
+        <span class="fn-cat-badge cat-string">String</span>
+        <div class="fn-name">strjoin</div>
+        <div class="fn-signature">strjoin(list, joiner)</div>
+        <div class="fn-desc">Joins a list of strings together with a joiner.</div>
+        <div class="fn-example">strjoin(["a","b","c"], "-") → "a-b-c"</div>
+      </div>
+      <!-- Math Functions -->
+      <div class="fn-card" data-cat="math" data-name="abs">
+        <span class="fn-cat-badge cat-math">Math</span>
+        <div class="fn-name">abs</div>
+        <div class="fn-signature">abs(number)</div>
+        <div class="fn-desc">Returns the absolute (positive) value of a number.</div>
+        <div class="fn-example">abs(-10) → 10</div>
+      </div>
+      <div class="fn-card" data-cat="math" data-name="round">
+        <span class="fn-cat-badge cat-math">Math</span>
+        <div class="fn-name">round</div>
+        <div class="fn-signature">round(number)</div>
+        <div class="fn-desc">Rounds a number to the nearest whole number.</div>
+        <div class="fn-example">round(4.7) → 5</div>
+      </div>
+      <div class="fn-card" data-cat="math" data-name="floor">
+        <span class="fn-cat-badge cat-math">Math</span>
+        <div class="fn-name">floor</div>
+        <div class="fn-signature">floor(number)</div>
+        <div class="fn-desc">Always rounds DOWN to the nearest whole number.</div>
+        <div class="fn-example">floor(4.9) → 4</div>
+      </div>
+      <div class="fn-card" data-cat="math" data-name="ceil">
+        <span class="fn-cat-badge cat-math">Math</span>
+        <div class="fn-name">ceil</div>
+        <div class="fn-signature">ceil(number)</div>
+        <div class="fn-desc">Always rounds UP to the nearest whole number.</div>
+        <div class="fn-example">ceil(4.1) → 5</div>
+      </div>
+      <div class="fn-card" data-cat="math" data-name="max">
+        <span class="fn-cat-badge cat-math">Math</span>
+        <div class="fn-name">max</div>
+        <div class="fn-signature">max(a, b) or max(list)</div>
+        <div class="fn-desc">Finds the biggest number among the inputs.</div>
+        <div class="fn-example">max(5, 10) → 10</div>
+      </div>
+      <div class="fn-card" data-cat="math" data-name="min">
+        <span class="fn-cat-badge cat-math">Math</span>
+        <div class="fn-name">min</div>
+        <div class="fn-signature">min(a, b) or min(list)</div>
+        <div class="fn-desc">Finds the smallest number among the inputs.</div>
+        <div class="fn-example">min(5, 10) → 5</div>
+      </div>
+      <div class="fn-card" data-cat="math" data-name="sum">
+        <span class="fn-cat-badge cat-math">Math</span>
+        <div class="fn-name">sum</div>
+        <div class="fn-signature">sum(list)</div>
+        <div class="fn-desc">Adds up all numbers in a list.</div>
+        <div class="fn-example">sum([1, 2, 3]) → 6</div>
+      </div>
+      <div class="fn-card" data-cat="math" data-name="random">
+        <span class="fn-cat-badge cat-math">Math</span>
+        <div class="fn-name">random</div>
+        <div class="fn-signature">random()</div>
+        <div class="fn-desc">Gives a random decimal number between 0 and 1.</div>
+        <div class="fn-example">random() → 0.735...</div>
+      </div>
+      <div class="fn-card" data-cat="math" data-name="randint">
+        <span class="fn-cat-badge cat-math">Math</span>
+        <div class="fn-name">randint</div>
+        <div class="fn-signature">randint(min, max)</div>
+        <div class="fn-desc">Gives a random whole number in the given range.</div>
+        <div class="fn-example">randint(1, 10) → 7 (varies!)</div>
+      </div>
+      <!-- List Functions -->
+      <div class="fn-card" data-cat="list" data-name="len">
+        <span class="fn-cat-badge cat-list">List</span>
+        <div class="fn-name">len</div>
+        <div class="fn-signature">len(list)</div>
+        <div class="fn-desc">Tells you how many items are in the list.</div>
+        <div class="fn-example">len([1, 2, 3]) → 3</div>
+      </div>
+      <div class="fn-card" data-cat="list" data-name="range">
+        <span class="fn-cat-badge cat-list">List</span>
+        <div class="fn-name">range</div>
+        <div class="fn-signature">range(start, end)</div>
+        <div class="fn-desc">Creates a list of numbers from start up to (not including) end.</div>
+        <div class="fn-example">range(1, 5) → [1, 2, 3, 4]</div>
+      </div>
+      <div class="fn-card" data-cat="list" data-name="sort">
+        <span class="fn-cat-badge cat-list">List</span>
+        <div class="fn-name">sort</div>
+        <div class="fn-signature">sort(list)</div>
+        <div class="fn-desc">Returns a sorted version of the list (smallest first).</div>
+        <div class="fn-example">sort([3, 1, 2]) → [1, 2, 3]</div>
+      </div>
+      <div class="fn-card" data-cat="list" data-name="reverse">
+        <span class="fn-cat-badge cat-list">List</span>
+        <div class="fn-name">reverse</div>
+        <div class="fn-signature">reverse(list)</div>
+        <div class="fn-desc">Flips the list backwards.</div>
+        <div class="fn-example">reverse([1, 2, 3]) → [3, 2, 1]</div>
+      </div>
+      <div class="fn-card" data-cat="list" data-name="append">
+        <span class="fn-cat-badge cat-list">List</span>
+        <div class="fn-name">append</div>
+        <div class="fn-signature">append(list, item)</div>
+        <div class="fn-desc">Adds an item to the end of a list.</div>
+        <div class="fn-example">append([1,2], 3) → [1, 2, 3]</div>
+      </div>
+      <div class="fn-card" data-cat="list" data-name="pop">
+        <span class="fn-cat-badge cat-list">List</span>
+        <div class="fn-name">pop</div>
+        <div class="fn-signature">pop(list)</div>
+        <div class="fn-desc">Removes and returns the last item from a list.</div>
+        <div class="fn-example">pop([1, 2, 3]) → [1, 2]</div>
+      </div>
+      <div class="fn-card" data-cat="list" data-name="index">
+        <span class="fn-cat-badge cat-list">List</span>
+        <div class="fn-name">index</div>
+        <div class="fn-signature">index(list, n)</div>
+        <div class="fn-desc">Returns the item at position n in the list.</div>
+        <div class="fn-example">index([10,20,30], 1) → 20</div>
+      </div>
+      <div class="fn-card" data-cat="list" data-name="slice">
+        <span class="fn-cat-badge cat-list">List</span>
+        <div class="fn-name">slice</div>
+        <div class="fn-signature">slice(list, start, end)</div>
+        <div class="fn-desc">Returns a portion of the list from start to end.</div>
+        <div class="fn-example">slice([1,2,3,4], 1, 3) → [2, 3]</div>
+      </div>
+      <!-- Type/Conversion Functions -->
+      <div class="fn-card" data-cat="type" data-name="typeof">
+        <span class="fn-cat-badge cat-type">Type</span>
+        <div class="fn-name">typeof</div>
+        <div class="fn-signature">typeof(value)</div>
+        <div class="fn-desc">Tells you what type a value is (int, str, float, list, etc.).</div>
+        <div class="fn-example">typeof(42) → "int"</div>
+      </div>
+      <div class="fn-card" data-cat="type" data-name="tostr">
+        <span class="fn-cat-badge cat-type">Type</span>
+        <div class="fn-name">tostr</div>
+        <div class="fn-signature">tostr(value)</div>
+        <div class="fn-desc">Converts a number (or anything) to text.</div>
+        <div class="fn-example">tostr(123) → "123"</div>
+      </div>
+      <div class="fn-card" data-cat="type" data-name="toint">
+        <span class="fn-cat-badge cat-type">Type</span>
+        <div class="fn-name">toint</div>
+        <div class="fn-signature">toint(value)</div>
+        <div class="fn-desc">Converts text to a whole number (integer).</div>
+        <div class="fn-example">toint("123") → 123</div>
+      </div>
+      <div class="fn-card" data-cat="type" data-name="tofloat">
+        <span class="fn-cat-badge cat-type">Type</span>
+        <div class="fn-name">tofloat</div>
+        <div class="fn-signature">tofloat(value)</div>
+        <div class="fn-desc">Converts text to a decimal number (float).</div>
+        <div class="fn-example">tofloat("1.5") → 1.5</div>
+      </div>
+    </div>
+    <div class="no-results" id="fnNoResults">😕 No functions found! Try a different search.</div>
+
+    <!-- KEYWORDS -->
+    <div class="section-title" style="margin-top: 3rem;">
+      🔑 Keywords
+      <span class="count-badge" id="kwCount">14</span>
+    </div>
+    <div class="kw-grid" id="kwGrid">
+      <div class="kw-card" data-name="set">
+        <div class="kw-word">SET</div>
+        <div class="kw-use"><span class="kw-arrow">→</span> Creates or updates a variable<br><code>SET name TO "Alex"</code></div>
+      </div>
+      <div class="kw-card" data-name="to">
+        <div class="kw-word">TO</div>
+        <div class="kw-use"><span class="kw-arrow">→</span> Used with SET to assign a value<br><code>SET x TO 10</code></div>
+      </div>
+      <div class="kw-card" data-name="disp">
+        <div class="kw-word">DISP</div>
+        <div class="kw-use"><span class="kw-arrow">→</span> Prints/displays a value on screen<br><code>DISP "Hello!"</code></div>
+      </div>
+      <div class="kw-card" data-name="if">
+        <div class="kw-word">IF</div>
+        <div class="kw-use"><span class="kw-arrow">→</span> Makes a decision based on a condition<br><code>IF score > 50:</code></div>
+      </div>
+      <div class="kw-card" data-name="elif">
+        <div class="kw-word">ELIF</div>
+        <div class="kw-use"><span class="kw-arrow">→</span> "Else If" — checks another condition<br><code>ELIF score > 20:</code></div>
+      </div>
+      <div class="kw-card" data-name="else">
+        <div class="kw-word">ELSE</div>
+        <div class="kw-use"><span class="kw-arrow">→</span> Runs when no IF/ELIF matched<br><code>ELSE:</code></div>
+      </div>
+      <div class="kw-card" data-name="for">
+        <div class="kw-word">FOR</div>
+        <div class="kw-use"><span class="kw-arrow">→</span> Repeats code for each item<br><code>FOR list AS item:</code></div>
+      </div>
+      <div class="kw-card" data-name="as">
+        <div class="kw-word">AS</div>
+        <div class="kw-use"><span class="kw-arrow">→</span> Names the current item in a FOR loop<br><code>FOR fruits AS fruit:</code></div>
+      </div>
+      <div class="kw-card" data-name="while">
+        <div class="kw-word">WHILE</div>
+        <div class="kw-use"><span class="kw-arrow">→</span> Repeats while a condition is true<br><code>WHILE count < 10:</code></div>
+      </div>
+      <div class="kw-card" data-name="next">
+        <div class="kw-word">NEXT</div>
+        <div class="kw-use"><span class="kw-arrow">→</span> Skip to next loop iteration (continue)<br><code>NEXT</code></div>
+      </div>
+      <div class="kw-card" data-name="end">
+        <div class="kw-word">END</div>
+        <div class="kw-use"><span class="kw-arrow">→</span> Stop the loop completely (break)<br><code>END</code></div>
+      </div>
+      <div class="kw-card" data-name="def">
+        <div class="kw-word">DEF</div>
+        <div class="kw-use"><span class="kw-arrow">→</span> Defines a new function<br><code>DEF greet(name):</code></div>
+      </div>
+      <div class="kw-card" data-name="return">
+        <div class="kw-word">RETURN</div>
+        <div class="kw-use"><span class="kw-arrow">→</span> Returns a value from a function<br><code>RETURN result</code></div>
+      </div>
+      <div class="kw-card" data-name="ask">
+        <div class="kw-word">ASK</div>
+        <div class="kw-use"><span class="kw-arrow">→</span> Gets input from the user<br><code>ASK INT "Your age? "</code></div>
+      </div>
+    </div>
+    <div class="no-results" id="kwNoResults">😕 No keywords found! Try a different search.</div>
+
+  </main>
+
+  <footer class="footer">
+    <p>🎮 FLang — Made with ❤️ by <a href="/about.html">Muhammad Abubakar Siddique Ansari</a></p>
+  </footer>
+
+  <script>
+    document.getElementById('hamburger').addEventListener('click', () => {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    });
+
+    const searchInput = document.getElementById('globalSearch');
+    const fnGrid = document.getElementById('fnGrid');
+    const kwGrid = document.getElementById('kwGrid');
+    const fnNoResults = document.getElementById('fnNoResults');
+    const kwNoResults = document.getElementById('kwNoResults');
+    const fnCount = document.getElementById('fnCount');
+    const kwCount = document.getElementById('kwCount');
+    let activeFilter = 'all';
+
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeFilter = btn.dataset.filter;
+        filterAll();
+      });
+    });
+
+    function filterAll() {
+      const q = searchInput.value.toLowerCase().trim();
+      let fnVisible = 0, kwVisible = 0;
+
+      document.querySelectorAll('.fn-card').forEach(card => {
+        const cat = card.dataset.cat;
+        const name = card.dataset.name;
+        const text = card.textContent.toLowerCase();
+        const catMatch = activeFilter === 'all' || cat === activeFilter;
+        const searchMatch = !q || text.includes(q);
+        const show = catMatch && searchMatch;
+        card.classList.toggle('hidden', !show);
+        if (show) fnVisible++;
+      });
+
+      document.querySelectorAll('.kw-card').forEach(card => {
+        const name = card.dataset.name;
+        const text = card.textContent.toLowerCase();
+        const show = !q || text.includes(q);
+        card.classList.toggle('hidden', !show);
+        if (show) kwVisible++;
+      });
+
+      fnCount.textContent = fnVisible;
+      kwCount.textContent = kwVisible;
+      fnNoResults.style.display = fnVisible === 0 ? 'block' : 'none';
+      kwNoResults.style.display = kwVisible === 0 ? 'block' : 'none';
+    }
+
+    searchInput.addEventListener('input', filterAll);
+  </script>
+</body>
+</html>

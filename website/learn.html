@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learn FLang - The Fun Language!</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+    .lesson-nav {
+      position: sticky;
+      top: 69px;
+      z-index: 50;
+      background: #fff;
+      border-bottom: 2px solid #ffe082;
+      padding: 0.6rem 1.5rem;
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      overflow-x: auto;
+    }
+    .lesson-nav a {
+      font-family: 'Fredoka One', cursive;
+      font-size: 0.85rem;
+      color: #4c3bff;
+      text-decoration: none;
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      background: #f3f0ff;
+      white-space: nowrap;
+      border: 2px solid transparent;
+      transition: all 0.15s;
+    }
+    .lesson-nav a:hover { background: #4c3bff; color: #fff; }
+    .lesson-section {
+      margin-bottom: 3rem;
+      scroll-margin-top: 130px;
+    }
+    .lesson-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+    }
+    .lesson-num {
+      background: #4c3bff;
+      color: #fff;
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.1rem;
+      width: 2.4rem;
+      height: 2.4rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 3px 0 #2b1cc9;
+    }
+    .lesson-title {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.6rem;
+      color: #1a0062;
+    }
+    .lesson-emoji { font-size: 1.6rem; }
+    .tip-box {
+      background: #fffde7;
+      border: 2px dashed #ffd740;
+      border-radius: 1rem;
+      padding: 1rem 1.2rem;
+      margin: 1rem 0;
+      font-size: 0.95rem;
+      color: #5c3d00;
+    }
+    .tip-box::before { content: '💡 Tip: '; font-weight: 800; }
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 1rem 0;
+    }
+    @media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
+    .mini-card {
+      background: #fff;
+      border-radius: 1rem;
+      padding: 1rem;
+      border: 2px solid #e0e0e0;
+    }
+    .mini-card-title {
+      font-family: 'Fredoka One', cursive;
+      color: #4c3bff;
+      margin-bottom: 0.5rem;
+    }
+    .keyword-pill {
+      display: inline-block;
+      background: #4c3bff;
+      color: #fff;
+      font-family: 'Fredoka One', cursive;
+      font-size: 1rem;
+      padding: 0.25rem 0.8rem;
+      border-radius: 0.4rem;
+      margin: 0.2rem;
+    }
+    .progress-bar-wrap {
+      background: #e8e4ff;
+      border-radius: 999px;
+      height: 8px;
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+    .progress-bar {
+      background: linear-gradient(90deg, #4c3bff, #ff6b6b);
+      height: 100%;
+      border-radius: 999px;
+      transition: width 0.5s ease;
+    }
+    .quiz-box {
+      background: linear-gradient(135deg, #f3f0ff, #fff0f6);
+      border: 3px solid #c4b5fd;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      margin: 2rem 0;
+    }
+    .quiz-box h3 {
+      font-family: 'Fredoka One', cursive;
+      color: #1a0062;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .quiz-options { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+    .quiz-opt {
+      background: #fff;
+      border: 2px solid #c4b5fd;
+      border-radius: 0.8rem;
+      padding: 0.6rem 1.2rem;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .quiz-opt:hover { background: #e8e4ff; border-color: #4c3bff; }
+    .quiz-opt.correct { background: #d1fae5; border-color: #10b981; color: #065f46; }
+    .quiz-opt.wrong { background: #fee2e2; border-color: #ef4444; color: #991b1b; }
+    .quiz-result { margin-top: 0.8rem; font-weight: 700; font-size: 0.95rem; min-height: 1.4rem; }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="/" class="nav-logo">🎮 FLang</a>
+    <div class="nav-links">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/learn.html" class="nav-link active">Learn</a>
+      <a href="/explore.html" class="nav-link">Explore</a>
+      <a href="/about.html" class="nav-link">About</a>
+      <a href="https://github.com/Ansari-Codes/funlang" target="_blank" class="nav-link github-link">⭐ GitHub</a>
+    </div>
+    <button class="hamburger" id="hamburger">☰</button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="/" class="nav-link">Home</a>
+    <a href="/learn.html" class="nav-link active">Learn</a>
+    <a href="/explore.html" class="nav-link">Explore</a>
+    <a href="/about.html" class="nav-link">About</a>
+    <a href="https://github.com/Ansari-Codes/funlang" target="_blank" class="nav-link">⭐ GitHub</a>
+  </div>
+
+  <div class="page-hero">
+    <span class="page-hero-emoji">📚</span>
+    <h1>Learn FLang!</h1>
+    <p>Step-by-step lessons — from zero to coding hero! Each lesson builds on the last. Let's go!</p>
+  </div>
+
+  <nav class="lesson-nav" aria-label="Lesson navigation">
+    <a href="#variables">📦 Variables</a>
+    <a href="#display">🖨️ Display</a>
+    <a href="#conditions">🤔 Conditions</a>
+    <a href="#loops">🔄 Loops</a>
+    <a href="#arrays">🎒 Arrays</a>
+    <a href="#functions">⚡ Functions</a>
+    <a href="#input">🎤 Input</a>
+    <a href="#running">🚀 Running</a>
+  </nav>
+
+  <main class="container">
+    <div class="progress-bar-wrap">
+      <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+    </div>
+
+    <!-- LESSON 1: Variables -->
+    <section class="lesson-section" id="variables">
+      <div class="lesson-header">
+        <div class="lesson-num">1</div>
+        <span class="lesson-emoji">📦</span>
+        <div class="lesson-title">Variables — Your Label Boxes</div>
+      </div>
+      <div class="card">
+        <p style="margin-bottom:1rem;">A <strong>variable</strong> is like a labeled box where you store information. Think of <code style="background:#f3f0ff;padding:0.1rem 0.4rem;border-radius:0.3rem;">SET</code> as putting something in a box!</p>
+        <div class="code-block"><span class="kw">SET</span> my_name <span class="kw">TO</span> <span class="str">"Robot"</span>
+<span class="kw">SET</span> score <span class="kw">TO</span> <span class="num">100</span>
+<span class="kw">SET</span> is_fun <span class="kw">TO</span> true</div>
+        <div class="two-col">
+          <div class="mini-card">
+            <div class="mini-card-title">📝 Text (Strings)</div>
+            <p>Wrap text in <strong>double quotes</strong>: <code>"Hello"</code></p>
+          </div>
+          <div class="mini-card">
+            <div class="mini-card-title">🔢 Numbers</div>
+            <p>Just write the number: <code>42</code> or <code>3.14</code></p>
+          </div>
+          <div class="mini-card">
+            <div class="mini-card-title">✅ True/False</div>
+            <p>Use <code>true</code> or <code>false</code> (no quotes!)</p>
+          </div>
+          <div class="mini-card">
+            <div class="mini-card-title">📋 Lists</div>
+            <p>Use square brackets: <code>[1, 2, 3]</code></p>
+          </div>
+        </div>
+        <div class="tip-box">You can name your variables anything! Use underscores for spaces like <code>my_score</code>.</div>
+      </div>
+
+      <div class="quiz-box">
+        <h3>🧠 Quick Check! How do you create a variable in FLang?</h3>
+        <div class="quiz-options">
+          <button class="quiz-opt" onclick="checkQuiz(this, false)">VAR name = "Robot"</button>
+          <button class="quiz-opt" onclick="checkQuiz(this, true)">SET name TO "Robot"</button>
+          <button class="quiz-opt" onclick="checkQuiz(this, false)">LET name BE "Robot"</button>
+          <button class="quiz-opt" onclick="checkQuiz(this, false)">MAKE name "Robot"</button>
+        </div>
+        <div class="quiz-result" id="qr1"></div>
+      </div>
+    </section>
+
+    <!-- LESSON 2: Display -->
+    <section class="lesson-section" id="display">
+      <div class="lesson-header">
+        <div class="lesson-num">2</div>
+        <span class="lesson-emoji">🖨️</span>
+        <div class="lesson-title">DISP — Show Stuff on Screen</div>
+      </div>
+      <div class="card">
+        <p style="margin-bottom:1rem;"><strong>DISP</strong> (short for Display) lets you print things to the screen. It's like telling the computer to say something out loud!</p>
+        <div class="code-block"><span class="kw">DISP</span> <span class="str">"Hello, World!"</span>
+<span class="kw">DISP</span> score
+<span class="kw">DISP</span> <span class="str">"Your score is: "</span> + score</div>
+        <div class="tip-box">Use the <code>+</code> operator to join text and variables together!</div>
+      </div>
+    </section>
+
+    <!-- LESSON 3: Conditions -->
+    <section class="lesson-section" id="conditions">
+      <div class="lesson-header">
+        <div class="lesson-num">3</div>
+        <span class="lesson-emoji">🤔</span>
+        <div class="lesson-title">Making Decisions — IF, ELIF, ELSE</div>
+      </div>
+      <div class="card">
+        <p style="margin-bottom:1rem;">Sometimes we want the computer to make choices. We use <strong>IF</strong>, <strong>ELIF</strong> (else-if), and <strong>ELSE</strong> for this!</p>
+        <div class="code-block"><span class="kw">SET</span> age <span class="kw">TO</span> <span class="num">10</span>
+
+<span class="kw">IF</span> age > <span class="num">12</span>:
+    <span class="kw">DISP</span> <span class="str">"You are a teenager!"</span>
+<span class="kw">ELIF</span> age < <span class="num">5</span>:
+    <span class="kw">DISP</span> <span class="str">"You are a toddler!"</span>
+<span class="kw">ELSE</span>:
+    <span class="kw">DISP</span> <span class="str">"You are just right!"</span></div>
+        <div class="two-col">
+          <div class="mini-card">
+            <div class="mini-card-title">⚖️ Comparison Operators</div>
+            <p><code>&gt;</code> Greater than<br><code>&lt;</code> Less than<br><code>&gt;=</code> Greater or equal<br><code>&lt;=</code> Less or equal<br><code>=</code> Equal to</p>
+          </div>
+          <div class="mini-card">
+            <div class="mini-card-title">🔗 Logical Operators</div>
+            <p><code>&amp;</code> means AND<br><code>|</code> means OR<br><code>!</code> means NOT</p>
+          </div>
+        </div>
+        <div class="tip-box">Always remember the colon <code>:</code> at the end of IF, ELIF, and ELSE lines!</div>
+      </div>
+
+      <div class="quiz-box">
+        <h3>🧠 What does ELIF stand for?</h3>
+        <div class="quiz-options">
+          <button class="quiz-opt" onclick="checkQuiz(this, false)">Every Loop If</button>
+          <button class="quiz-opt" onclick="checkQuiz(this, false)">End Last If</button>
+          <button class="quiz-opt" onclick="checkQuiz(this, true)">Else If</button>
+          <button class="quiz-opt" onclick="checkQuiz(this, false)">Equal Logic If</button>
+        </div>
+        <div class="quiz-result"></div>
+      </div>
+    </section>
+
+    <!-- LESSON 4: Loops -->
+    <section class="lesson-section" id="loops">
+      <div class="lesson-header">
+        <div class="lesson-num">4</div>
+        <span class="lesson-emoji">🔄</span>
+        <div class="lesson-title">Loops — Do Things Over and Over!</div>
+      </div>
+      <div class="card">
+        <p style="margin-bottom:1rem;">Loops let the computer repeat actions many times. There are two kinds of loops in FLang!</p>
+        <div class="two-col">
+          <div class="mini-card">
+            <div class="mini-card-title">🔁 FOR Loop</div>
+            <p>Use when you know <em>how many times</em> to repeat.</p>
+          </div>
+          <div class="mini-card">
+            <div class="mini-card-title">⏳ WHILE Loop</div>
+            <p>Use when you repeat <em>until something changes</em>.</p>
+          </div>
+        </div>
+        <div class="code-block"><span class="cmt">-- FOR loop: print 1 to 5</span>
+<span class="kw">FOR</span> <span class="fn">range</span>(<span class="num">1</span>, <span class="num">6</span>) <span class="kw">AS</span> i:
+    <span class="kw">DISP</span> i
+
+<span class="cmt">-- Loop through a list</span>
+<span class="kw">SET</span> fruits <span class="kw">TO</span> [<span class="str">"apple"</span>, <span class="str">"banana"</span>, <span class="str">"mango"</span>]
+<span class="kw">FOR</span> fruits <span class="kw">AS</span> fruit:
+    <span class="kw">DISP</span> fruit
+
+<span class="cmt">-- WHILE loop</span>
+<span class="kw">SET</span> counter <span class="kw">TO</span> <span class="num">0</span>
+<span class="kw">WHILE</span> counter < <span class="num">3</span>:
+    <span class="kw">DISP</span> <span class="str">"Still going!"</span>
+    <span class="kw">SET</span> counter <span class="kw">TO</span> counter + <span class="num">1</span></div>
+        <div style="margin-top:1rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
+          <div style="background:#fce7f3;border-radius:1rem;padding:0.8rem 1rem;flex:1;min-width:180px;">
+            <strong style="color:#be185d;">NEXT</strong> — Skip to next round of the loop (like Python's <code>continue</code>)
+          </div>
+          <div style="background:#e0f2fe;border-radius:1rem;padding:0.8rem 1rem;flex:1;min-width:180px;">
+            <strong style="color:#0369a1;">END</strong> — Stop the loop completely (like Python's <code>break</code>)
+          </div>
+        </div>
+        <div class="tip-box">Don't forget to increase your counter in a WHILE loop or it runs forever!</div>
+      </div>
+    </section>
+
+    <!-- LESSON 5: Arrays -->
+    <section class="lesson-section" id="arrays">
+      <div class="lesson-header">
+        <div class="lesson-num">5</div>
+        <span class="lesson-emoji">🎒</span>
+        <div class="lesson-title">Arrays — Lists of Things</div>
+      </div>
+      <div class="card">
+        <p style="margin-bottom:1rem;">An <strong>array</strong> is a list of items stored in one variable. Think of it like a bag holding many things!</p>
+        <div class="code-block"><span class="kw">SET</span> my_list <span class="kw">TO</span> [<span class="num">10</span>, <span class="num">20</span>, <span class="num">30</span>, <span class="num">40</span>]
+
+<span class="cmt">-- Get the first item (index 0)</span>
+<span class="kw">DISP</span> my_list[<span class="num">0</span>]  <span class="cmt">-- prints 10</span>
+
+<span class="cmt">-- Loop through the list</span>
+<span class="kw">FOR</span> my_list <span class="kw">AS</span> item:
+    <span class="kw">DISP</span> item</div>
+        <div class="tip-box">Arrays start counting from <strong>0</strong>, not 1! So the first item is at index 0.</div>
+      </div>
+    </section>
+
+    <!-- LESSON 6: Functions -->
+    <section class="lesson-section" id="functions">
+      <div class="lesson-header">
+        <div class="lesson-num">6</div>
+        <span class="lesson-emoji">⚡</span>
+        <div class="lesson-title">Functions — Your Own Special Commands</div>
+      </div>
+      <div class="card">
+        <p style="margin-bottom:1rem;">A <strong>function</strong> is a reusable block of code you name and call whenever you need it. Use <strong>DEF</strong> to define one!</p>
+        <div class="code-block"><span class="kw">DEF</span> <span class="fn">say_hello</span>(name):
+    <span class="kw">DISP</span> <span class="str">"Hello "</span> + name + <span class="str">"!"</span>
+
+<span class="fn">say_hello</span>(<span class="str">"Sam"</span>)
+<span class="fn">say_hello</span>(<span class="str">"Alex"</span>)
+
+<span class="cmt">-- Function with RETURN</span>
+<span class="kw">DEF</span> <span class="fn">add</span>(a, b):
+    <span class="kw">RETURN</span> a + b
+
+<span class="kw">SET</span> result <span class="kw">TO</span> <span class="fn">add</span>(<span class="num">5</span>, <span class="num">3</span>)
+<span class="kw">DISP</span> result  <span class="cmt">-- prints 8</span></div>
+        <div class="tip-box">Functions help you avoid writing the same code twice. Write once, use many times!</div>
+      </div>
+    </section>
+
+    <!-- LESSON 7: Input -->
+    <section class="lesson-section" id="input">
+      <div class="lesson-header">
+        <div class="lesson-num">7</div>
+        <span class="lesson-emoji">🎤</span>
+        <div class="lesson-title">ASK — Get Input from the User</div>
+      </div>
+      <div class="card">
+        <p style="margin-bottom:1rem;">Use <strong>ASK</strong> to ask the user a question and store their answer in a variable!</p>
+        <div class="code-block"><span class="cmt">-- Ask for a number</span>
+<span class="kw">SET</span> age <span class="kw">TO</span> <span class="kw">ASK INT</span> <span class="str">"How old are you? "</span>
+
+<span class="cmt">-- Ask for text</span>
+<span class="kw">SET</span> name <span class="kw">TO</span> <span class="kw">ASK STR</span> <span class="str">"What is your name? "</span>
+
+<span class="kw">DISP</span> <span class="str">"Nice to meet you, "</span> + name + <span class="str">"!"</span></div>
+        <div class="two-col">
+          <div class="mini-card">
+            <div class="mini-card-title">🔢 ASK INT</div>
+            <p>Asks for a whole number. Perfect for scores, ages, counts!</p>
+          </div>
+          <div class="mini-card">
+            <div class="mini-card-title">💬 ASK STR</div>
+            <p>Asks for text. Perfect for names, answers, messages!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LESSON 8: Running -->
+    <section class="lesson-section" id="running">
+      <div class="lesson-header">
+        <div class="lesson-num">8</div>
+        <span class="lesson-emoji">🚀</span>
+        <div class="lesson-title">Running Your FLang Program</div>
+      </div>
+      <div class="card">
+        <p style="margin-bottom:1rem;">Save your code in a file ending with <strong>.fun</strong> and run it like this:</p>
+        <div class="code-block" style="background:#0d1117;color:#58a6ff;">python -m flang.__main__ your_file.fun</div>
+        <div class="highlight-box">
+          <p style="font-family:'Fredoka One',cursive;font-size:1.2rem;color:#1a0062;margin-bottom:0.5rem;">🎉 You finished the lessons!</p>
+          <p>Now go to the <a href="/explore.html" style="color:#4c3bff;font-weight:700;">Explore page</a> to discover all the built-in functions, or check out the <a href="https://github.com/Ansari-Codes/funlang" target="_blank" style="color:#4c3bff;font-weight:700;">GitHub repo</a> to download FLang!</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>🎮 FLang — Made with ❤️ by <a href="/about.html">Muhammad Abubakar Siddique Ansari</a></p>
+  </footer>
+
+  <script>
+    document.getElementById('hamburger').addEventListener('click', () => {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    });
+
+    function checkQuiz(btn, isCorrect) {
+      const container = btn.closest('.quiz-options');
+      const resultEl = container.nextElementSibling;
+      container.querySelectorAll('.quiz-opt').forEach(b => b.disabled = true);
+      if (isCorrect) {
+        btn.classList.add('correct');
+        resultEl.textContent = '🎉 Correct! Amazing!';
+        resultEl.style.color = '#065f46';
+      } else {
+        btn.classList.add('wrong');
+        resultEl.textContent = '😅 Not quite! Try again next time.';
+        resultEl.style.color = '#991b1b';
+        container.querySelectorAll('.quiz-opt').forEach(b => {
+          if (b.onclick && b.onclick.toString().includes('true')) {
+            b.classList.add('correct');
+          }
+        });
+      }
+    }
+
+    const sections = document.querySelectorAll('.lesson-section');
+    const bar = document.getElementById('progressBar');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const idx = Array.from(sections).indexOf(e.target);
+          bar.style.width = ((idx + 1) / sections.length * 100) + '%';
+        }
+      });
+    }, { threshold: 0.3 });
+    sections.forEach(s => observer.observe(s));
+  </script>
+</body>
+</html>

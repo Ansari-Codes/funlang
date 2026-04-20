@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FLang - The Fun Language!</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(ellipse at center, #fff9c4 0%, #ffe082 30%, #ffb347 60%, #ff6b6b 100%);
+      animation: bgSpin 20s linear infinite;
+      z-index: -1;
+    }
+    @keyframes bgSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .hero-badge {
+      background: #4c3bff;
+      color: #fff;
+      font-family: 'Fredoka One', cursive;
+      font-size: 1rem;
+      padding: 0.4rem 1.2rem;
+      border-radius: 999px;
+      margin-bottom: 1.5rem;
+      display: inline-block;
+      box-shadow: 0 4px 0 #2b1cc9;
+      animation: bounce 1.5s ease-in-out infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    .hero h1 {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(3rem, 10vw, 7rem);
+      color: #1a0062;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+      text-shadow: 4px 4px 0 #ffb347, 8px 8px 0 #ff6b6b;
+      animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+    }
+    @keyframes popIn {
+      from { transform: scale(0.3) rotate(-10deg); opacity: 0; }
+      to { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+    .hero-sub {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(1.3rem, 4vw, 2.2rem);
+      color: #3b0099;
+      margin-bottom: 2rem;
+      animation: fadeUp 0.8s 0.3s both;
+    }
+    .hero-desc {
+      font-size: 1.15rem;
+      color: #5c3d00;
+      max-width: 560px;
+      margin: 0 auto 2.5rem;
+      background: rgba(255,255,255,0.6);
+      border-radius: 1rem;
+      padding: 1rem 1.5rem;
+      animation: fadeUp 0.8s 0.5s both;
+    }
+    @keyframes fadeUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeUp 0.8s 0.7s both;
+    }
+    .btn-primary {
+      background: #4c3bff;
+      color: #fff;
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.2rem;
+      padding: 0.85rem 2.2rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 5px 0 #2b1cc9;
+      transition: transform 0.1s, box-shadow 0.1s;
+      display: inline-block;
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 0 #2b1cc9; }
+    .btn-primary:active { transform: translateY(2px); box-shadow: 0 2px 0 #2b1cc9; }
+    .btn-secondary {
+      background: #fff;
+      color: #4c3bff;
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.2rem;
+      padding: 0.85rem 2.2rem;
+      border-radius: 999px;
+      border: 3px solid #4c3bff;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 5px 0 #ccc;
+      transition: transform 0.1s, box-shadow 0.1s;
+      display: inline-block;
+    }
+    .btn-secondary:hover { transform: translateY(-3px); box-shadow: 0 8px 0 #ccc; }
+    .btn-secondary:active { transform: translateY(2px); box-shadow: 0 2px 0 #ccc; }
+    .floaties {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .floatie {
+      position: absolute;
+      font-size: 2.5rem;
+      animation: floatUp linear infinite;
+      opacity: 0.7;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(110vh) rotate(0deg); opacity: 0.7; }
+      100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      max-width: 1000px;
+      margin: 4rem auto;
+      padding: 0 1.5rem;
+    }
+    .feature-card {
+      background: #fff;
+      border-radius: 1.5rem;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      box-shadow: 0 6px 0 #ddd;
+      border: 3px solid #eee;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .feature-card:hover { transform: translateY(-5px) rotate(-1deg); box-shadow: 0 12px 0 #ddd; }
+    .feature-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .feature-title {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.3rem;
+      color: #1a0062;
+      margin-bottom: 0.5rem;
+    }
+    .feature-desc { font-size: 0.95rem; color: #555; }
+    .code-preview {
+      background: #1a0062;
+      border-radius: 1.5rem;
+      padding: 2rem;
+      max-width: 600px;
+      margin: 0 auto 4rem;
+      box-shadow: 0 8px 0 #0d003a;
+      text-align: left;
+      position: relative;
+      overflow: hidden;
+    }
+    .code-preview::before {
+      content: '● ● ●';
+      color: #ff6b6b;
+      font-size: 0.8rem;
+      letter-spacing: 0.3rem;
+      display: block;
+      margin-bottom: 1rem;
+    }
+    .code-preview pre {
+      margin: 0;
+      font-family: 'Courier New', monospace;
+      font-size: 1rem;
+      color: #a5f3fc;
+      line-height: 1.7;
+    }
+    .code-preview .kw { color: #f472b6; font-weight: bold; }
+    .code-preview .str { color: #86efac; }
+    .code-preview .num { color: #fbbf24; }
+    .code-preview .cmt { color: #94a3b8; }
+    .code-section-title {
+      font-family: 'Fredoka One', cursive;
+      font-size: 2rem;
+      text-align: center;
+      color: #1a0062;
+      margin: 3rem 0 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="floaties" id="floaties"></div>
+  <nav class="navbar">
+    <a href="/" class="nav-logo">🎮 FLang</a>
+    <div class="nav-links">
+      <a href="/" class="nav-link active">Home</a>
+      <a href="/learn.html" class="nav-link">Learn</a>
+      <a href="/explore.html" class="nav-link">Explore</a>
+      <a href="/about.html" class="nav-link">About</a>
+      <a href="https://github.com/Ansari-Codes/funlang" target="_blank" class="nav-link github-link">⭐ GitHub</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="/" class="nav-link active">Home</a>
+    <a href="/learn.html" class="nav-link">Learn</a>
+    <a href="/explore.html" class="nav-link">Explore</a>
+    <a href="/about.html" class="nav-link">About</a>
+    <a href="https://github.com/Ansari-Codes/funlang" target="_blank" class="nav-link">⭐ GitHub</a>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="hero-badge">✨ The Coolest Coding Language for Kids!</div>
+      <h1>F<span style="color:#ff6b6b;">L</span><span style="color:#ffb347;">a</span><span style="color:#4c3bff;">n</span><span style="color:#06d6a0;">g</span></h1>
+      <p class="hero-sub">Code with words that make sense!</p>
+      <p class="hero-desc">FLang is a super fun programming language that talks like a human. Learn to code, make stuff happen, and have a blast — no boring stuff!</p>
+      <div class="hero-buttons">
+        <a href="/learn.html" class="btn-primary">🚀 Start Learning!</a>
+        <a href="/explore.html" class="btn-secondary">🔍 Explore Tools</a>
+      </div>
+    </section>
+
+    <p class="code-section-title">Look how cool FLang is! 😎</p>
+    <div class="code-preview" style="padding: 2rem; max-width: 600px; margin: 0 auto 2rem;">
+      <pre><span class="cmt">-- Say hello to everyone!</span>
+<span class="kw">SET</span> name <span class="kw">TO</span> <span class="str">"World"</span>
+<span class="kw">SET</span> score <span class="kw">TO</span> <span class="num">100</span>
+
+<span class="kw">DISP</span> <span class="str">"Hello "</span> + name + <span class="str">"!"</span>
+
+<span class="kw">IF</span> score > <span class="num">50</span>:
+    <span class="kw">DISP</span> <span class="str">"You are AWESOME!"</span>
+<span class="kw">ELSE</span>:
+    <span class="kw">DISP</span> <span class="str">"Keep trying!"</span></pre>
+    </div>
+
+    <div class="features">
+      <div class="feature-card">
+        <div class="feature-icon">📖</div>
+        <div class="feature-title">Easy to Read</div>
+        <div class="feature-desc">FLang uses plain words like SET, DISP, and IF so you always know what's happening!</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🐍</div>
+        <div class="feature-title">Runs on Python</div>
+        <div class="feature-desc">FLang secretly talks to Python behind the scenes — learning FLang teaches you real coding!</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🧰</div>
+        <div class="feature-title">Built-in Superpowers</div>
+        <div class="feature-desc">Tons of built-in tools for math, text, lists, and more — batteries included!</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎮</div>
+        <div class="feature-title">Made for Fun</div>
+        <div class="feature-desc">Created for kids and beginners who want to learn programming the fun way!</div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>🎮 FLang — Made with ❤️ by <a href="/about.html">Muhammad Abubakar Siddique Ansari</a></p>
+    <p style="margin-top: 0.5rem; font-size: 0.85rem;">The Fun Language for Future Programmers!</p>
+  </footer>
+
+  <script>
+    const emojis = ['🌟', '🚀', '🎮', '⭐', '🦄', '🌈', '🎉', '🍭', '💡', '🔥', '🎈', '🧩'];
+    const floaties = document.getElementById('floaties');
+    for (let i = 0; i < 18; i++) {
+      const el = document.createElement('div');
+      el.className = 'floatie';
+      el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      el.style.left = Math.random() * 100 + 'vw';
+      el.style.animationDuration = (8 + Math.random() * 12) + 's';
+      el.style.animationDelay = (Math.random() * 10) + 's';
+      el.style.fontSize = (1.5 + Math.random() * 2) + 'rem';
+      floaties.appendChild(el);
+    }
+    document.getElementById('hamburger').addEventListener('click', () => {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    });
+  </script>
+</body>
+</html>
