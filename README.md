@@ -5,6 +5,22 @@ WEBSITE: https://ansari-codes.github.io/funlang/index.html
 
 Welcome to FLang! This is a special coding language designed to be easy to read and write. Think of it like giving instructions to a robot, but using words that make sense to humans.
 
+---
+## Installation
+
+Download this repository and also download python 3.10. Then, create your first file program.fun in /funs folder. Place this code:
+
+```
+DISP "Hello World!"
+```
+
+And then open control panel, cmd, in this folder and run it:
+```cmd
+python -m flang funs/program.fun
+```
+
+If you see "Hello World!" in output, you are good to go!
+
 Let’s start your adventure!
 
 ---
