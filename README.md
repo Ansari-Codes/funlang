@@ -1,6 +1,8 @@
 # 🎮 FLang: The Fun Language Manual
 **Written for Kids, Code Crackers, and Future Programmers!**
 
+WEBSITE: https://ansari-codes.github.io/funlang/index.html
+
 Welcome to FLang! This is a special coding language designed to be easy to read and write. Think of it like giving instructions to a robot, but using words that make sense to humans.
 
 Let’s start your adventure!
