@@ -65,4 +65,6 @@ def fun_toint(v): return int(v)
 def fun_tofloat(v): return float(v)
 def fun_random(): return _random.random()
 def fun_randint(a, b): return _random.randint(int(a), int(b))
+fun_true = True
+fun_false = False
 '''

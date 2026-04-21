@@ -162,7 +162,7 @@ FLang comes with a toolbox full of helpers. You don't need to write the math for
 
 # RUN by
 ```cmd
-python -m flang.__main__ your_file.fun
+python -m flang your_file.fun
 ```
 
 ---

@@ -1,16 +1,16 @@
 import sys
 import os
-from .transpiler import transpile
-from .errors import FLangError
+from src.transpiler import transpile
+from src.errors import FLangError
 
 
 def main():
     if len(sys.argv) < 2:
         print("FLang Interpreter")
-        print("Usage: python -m flang <file.fun>")
-        print("       python -m flang --transpile <file.fun>   (show Python code only)")
-        print("       python -m flang -o <output.py> <file.fun>   (write transpiled code to file and run)")
-        print("       python -m flang --transpile -o <output.py> <file.fun>   (write and show, no run)")
+        print("Usage: flang <file.fun>")
+        print("       flang --transpile <file.fun>   (show Python code only)")
+        print("       flang -o <output.py> <file.fun>   (write transpiled code to file and run)")
+        print("       flang --transpile -o <output.py> <file.fun>   (write and show, no run)")
         sys.exit(1)
 
     show_only = False
