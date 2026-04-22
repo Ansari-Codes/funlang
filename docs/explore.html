@@ -124,6 +124,16 @@
   </div>
 
   <div class="page-hero">
+    <style>
+      /* Responsive behavior for the hero image */
+      @media (max-width: 768px) {
+        .hero-gif {
+          visibility: hidden;
+        }
+      }
+    </style>
+    <img class="hero-gif" src="typing.gif" alt=" "
+      style="position: absolute; left: 10rem; top: 30%; transform: translateY(-50%); width: 35vw; max-width: 300px; height: auto; z-index: 10; pointer-events: none;">
     <span class="page-hero-emoji">🔍</span>
     <h1>Explore FLang!</h1>
     <p>Browse all the built-in superpowers and keywords. Search anything to find it fast!</p>

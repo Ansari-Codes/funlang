@@ -189,3 +189,9 @@ python -m flang your_file.fun
 Now you know the basics! Just remember: computers do exactly what you tell them. If something goes wrong, check your spelling and your colons `:`. Have fun!
 
 ***
+
+# LOGOS and GRAPHICS
+
+![](docs/Logo.svg)
+
+![](docs/Logo-with-cap.svg)
