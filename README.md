@@ -1,4 +1,4 @@
-# 🎮 FLang: The Fun Language Manual
+![](docs/FunLang.svg)
 **Written for Kids, Code Crackers, and Future Programmers!**
 
 WEBSITE: https://ansari-codes.github.io/funlang/index.html
